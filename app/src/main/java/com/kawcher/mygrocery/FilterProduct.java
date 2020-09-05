@@ -4,6 +4,7 @@ import android.media.midi.MidiOutputPort;
 import android.widget.Filter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 class FilterProduct extends Filter {
 
@@ -59,7 +60,7 @@ class FilterProduct extends Filter {
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
 
-        adapter.productArrayList=(ArrayList<ModelProduct>)results.values;
+        adapter.productList = new ArrayList<ModelProduct>((Collection<? extends ModelProduct>) results.values);
         //refresh adapter
         adapter.notifyDataSetChanged();
 

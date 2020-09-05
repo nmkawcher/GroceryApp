@@ -187,7 +187,7 @@ public class MainSellerActivity extends AppCompatActivity {
 
                             }
                         })
-                .show()
+                        .show()
                 ;
             }
         });
@@ -262,7 +262,7 @@ public class MainSellerActivity extends AppCompatActivity {
                         adapterProductSeller = new AdapterProductSeller(MainSellerActivity.this, productList);
                         //set Adapter
 
-                         productRV.setAdapter(adapterProductSeller);
+                        productRV.setAdapter(adapterProductSeller);
                     }
 
                     @Override
