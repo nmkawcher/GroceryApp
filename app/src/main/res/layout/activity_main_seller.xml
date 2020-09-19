@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainSellerActivity">
+    tools:context=".activities.MainSellerActivity">
 
     <RelativeLayout
         android:id="@+id/toolbarRL"
@@ -40,6 +40,14 @@
             android:layout_toLeftOf="@id/editProfileBtn"
             android:background="@null"
             android:src="@drawable/ic_add_shopping_white" />
+
+        <ImageButton
+            android:id="@+id/reviewsBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toLeftOf="@id/addProductBtn"
+            android:background="@null"
+            android:src="@drawable/ic_white_star" />
 
 
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
@@ -119,6 +127,7 @@
 
 <!--Products-->
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/productRL"
         android:layout_below="@id/toolbarRL"
         android:layout_width="match_parent"
@@ -178,6 +187,45 @@
         android:layout_below="@id/toolbarRL"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!--Search filter-->
+        <TextView
+            android:layout_toStartOf="@id/filterOrderBtn"
+            android:id="@+id/filteredOdersTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/shape_rect02"
+            android:padding="10dp"
+            android:text="Show All Orders"
+            />
+
+        <!--Filter orders-->
+
+        <ImageButton
+
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:id="@+id/filterOrderBtn"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/ic_filter_gray"
+            android:src="@drawable/ic_filter_gray"
+            />
+
+        <!--show orders-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/filteredOdersTV"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            app:reverseLayout="true"
+            app:stackFromEnd="true"
+            tools:listitem="@layout/row_order_seller"
+            android:layout_height="match_parent"
+            android:id="@+id/ordersRV"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
 
     </RelativeLayout>
 

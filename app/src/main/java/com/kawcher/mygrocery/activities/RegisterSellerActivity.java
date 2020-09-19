@@ -1,4 +1,4 @@
-package com.kawcher.mygrocery;
+package com.kawcher.mygrocery.activities;
 
 
 import androidx.annotation.NonNull;
@@ -30,7 +30,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,6 +42,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kawcher.mygrocery.R;
 
 import java.util.HashMap;
 import java.util.List;

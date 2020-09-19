@@ -1,6 +1,6 @@
 package com.kawcher.mygrocery;
 
-class Constatns {
+public class Constatns {
 
     //product categories
 

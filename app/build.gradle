@@ -35,11 +35,14 @@ dependencies {
     //firebase
 
     implementation 'com.google.firebase:firebase-auth:19.3.2'
-    implementation 'com.google.firebase:firebase-database:19.3.1'
-    implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation 'com.google.firebase:firebase-database:19.4.0'
+    implementation 'com.google.firebase:firebase-storage:19.2.0'
 
     //circleable image
     implementation 'com.github.mohammadatif:CircularImageView:1.0.0'
+
+    //sqlite
+    implementation 'com.github.p32929:AndroidEasySQL-Library:1.4.1'
 
 //image croping
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
@@ -47,7 +50,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "com.google.android.material:material:1.2.0"
+    implementation "com.google.android.material:material:1.2.1"
 
 
 

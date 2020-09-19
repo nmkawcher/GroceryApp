@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_00"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/itemTitleTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Item Title"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/itemPriceTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemTitleTV"
+        android:gravity="center"
+        android:text="@string/_1"
+        android:textColor="@color/colorBlack" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/itemTitleTV"
+        android:layout_centerHorizontal="true">
+
+
+        <TextView
+            android:id="@+id/itemPriceEachTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="10/kg"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/itemQuantityTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            android:text="[2]"
+            android:textColor="@color/colorBlack" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemRemoveTV"
+        android:layout_below="@id/itemTitleTV"
+        android:layout_alignParentEnd="true"
+        android:text="Remove"
+        android:textColor="@color/colorRed"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/itemRemoveTV"
+        android:background="@color/colorGreen"
+        />
+
+
+</RelativeLayout>

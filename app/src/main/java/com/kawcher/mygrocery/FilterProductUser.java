@@ -3,17 +3,18 @@ package com.kawcher.mygrocery;
 import android.widget.Filter;
 
 import com.kawcher.mygrocery.adapters.AdapterProductSeller;
+import com.kawcher.mygrocery.adapters.AdapterProductUser;
 import com.kawcher.mygrocery.models.ModelProduct;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class FilterProduct extends Filter {
+public class FilterProductUser extends Filter {
 
-    private AdapterProductSeller adapter;
+    private AdapterProductUser adapter;
     private ArrayList<ModelProduct>filterList;
 
-    public FilterProduct(AdapterProductSeller adapter, ArrayList<ModelProduct> filterList) {
+    public FilterProductUser(AdapterProductUser adapter, ArrayList<ModelProduct> filterList) {
         this.adapter = adapter;
         this.filterList = filterList;
     }
@@ -62,7 +63,7 @@ public class FilterProduct extends Filter {
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
 
-        adapter.productList = new ArrayList<ModelProduct>((Collection<? extends ModelProduct>) results.values);
+        adapter.productList= (ArrayList<ModelProduct>) results.values;
         //refresh adapter
         adapter.notifyDataSetChanged();
 

@@ -1,4 +1,4 @@
-package com.kawcher.mygrocery;
+package com.kawcher.mygrocery.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +15,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.regex.Pattern;
+import com.kawcher.mygrocery.R;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 

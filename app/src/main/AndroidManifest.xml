@@ -16,17 +16,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".EditProductActivity"></activity>
-        <activity android:name=".AddProductActivity" />
-        <activity android:name=".ProductEditUserActivity" />
-        <activity android:name=".ProductEditSellerActivity" />
-        <activity android:name=".MainUserActivity" />
-        <activity android:name=".MainSellerActivity" />
-        <activity android:name=".ForgetPasswordActivity" />
-        <activity android:name=".RegisterUserActivity" />
-        <activity android:name=".RegisterSellerActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".Splash_Activity">
+        <activity android:name=".activities.OrderDetailsSellerActivity"/>
+        <activity android:name=".activities.ShowShopReviewsActivity" />
+        <activity android:name=".activities.WriteReviewActivity" />
+        <activity android:name=".activities.OrderDetailsUserActivity" />
+        <activity
+            android:name=".activities.ShopDetailsActivity"
+            android:windowSoftInputMode="stateHidden" /> <!-- hide keyboard by default -->
+        <activity android:name=".activities.EditProductActivity" />
+        <activity android:name=".activities.AddProductActivity" />
+        <activity android:name=".activities.ProductEditUserActivity" />
+        <activity android:name=".activities.ProductEditSellerActivity" />
+        <activity android:name=".activities.MainUserActivity" />
+        <activity android:name=".activities.MainSellerActivity" />
+        <activity android:name=".activities.ForgetPasswordActivity" />
+        <activity android:name=".activities.RegisterUserActivity" />
+        <activity android:name=".activities.RegisterSellerActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.Splash_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

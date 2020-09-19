@@ -1,4 +1,4 @@
-package com.kawcher.mygrocery;
+package com.kawcher.mygrocery.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +28,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kawcher.mygrocery.Constatns;
+import com.kawcher.mygrocery.R;
+import com.kawcher.mygrocery.adapters.AdapterOrderShop;
+import com.kawcher.mygrocery.adapters.AdapterProductSeller;
+import com.kawcher.mygrocery.models.ModelOrderShop;
+import com.kawcher.mygrocery.models.ModelProduct;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,18 +41,21 @@ import java.util.HashMap;
 
 public class MainSellerActivity extends AppCompatActivity {
 
-    private TextView nameTV, shopNameTV, emailTV, tabProductTV, tabOrderTV, filteredProductsTV;
+    private TextView nameTV, shopNameTV, emailTV, tabProductTV, tabOrderTV, filteredProductsTV, filterOrdersTV;
     private EditText searchProductET;
-    private ImageButton logoutBtn, editProfileBtn, addProductBtn, filterProductBtn;
+    private ImageButton logoutBtn, editProfileBtn, addProductBtn, filterProductBtn, filterOrderBtn, reviewsBtn;
     private ImageView profileIV;
     private RelativeLayout productsRL, ordersRL;
-    private RecyclerView productRV;
+    private RecyclerView productRV, ordersRV;
 
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
 
     private ArrayList<ModelProduct> productList;
     private AdapterProductSeller adapterProductSeller;
+
+    private ArrayList<ModelOrderShop> orderShopArrayList;
+    private AdapterOrderShop adapterOrderShop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +69,19 @@ public class MainSellerActivity extends AppCompatActivity {
         tabProductTV = findViewById(R.id.tabProductsTV);
         tabOrderTV = findViewById(R.id.tabOrdersTV);
         filteredProductsTV = findViewById(R.id.filteredProductsTV);
+        filterOrdersTV = findViewById(R.id.filteredOdersTV);
 
 
         searchProductET = findViewById(R.id.searchProductET);
         filterProductBtn = findViewById(R.id.filterProductBtn);
-
+        filterOrderBtn = findViewById(R.id.filterOrderBtn);
+        reviewsBtn = findViewById(R.id.reviewsBtn);
         logoutBtn = findViewById(R.id.logoutBtn);
         editProfileBtn = findViewById(R.id.editProfileBtn);
         addProductBtn = findViewById(R.id.addProductBtn);
 
         productRV = findViewById(R.id.productsRV);
+        ordersRV = findViewById(R.id.ordersRV);
 
 
         profileIV = findViewById(R.id.profileIV);
@@ -86,6 +97,7 @@ public class MainSellerActivity extends AppCompatActivity {
         checkUser();
         showProductsUI();
         loadAllProducts();
+        loadAllOrders();
 
 
         searchProductET.addTextChangedListener(new TextWatcher() {
@@ -99,7 +111,7 @@ public class MainSellerActivity extends AppCompatActivity {
 
                 try {
                     adapterProductSeller.getFilter().filter(s.toString());
-                }catch (Exception e ){
+                } catch (Exception e) {
 
                     e.printStackTrace();
                 }
@@ -191,6 +203,78 @@ public class MainSellerActivity extends AppCompatActivity {
                 ;
             }
         });
+
+        filterOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //options to display in dialog
+                final String[] options = {"All", "In Progress", "Completed", "Cancelled"};
+                //dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainSellerActivity.this);
+                builder.setTitle("Filter Orders")
+                        .setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                //handle item clicks
+                                if (which == 0) {
+                                    filterOrdersTV.setText("Showing All Orders");
+                                    adapterOrderShop.getFilter().filter("");//show all orders
+
+                                } else {
+
+                                    String optionClicked = options[which];
+                                    filterOrdersTV.setText("Showing " + optionClicked + " Orders");
+                                    adapterOrderShop.getFilter().filter(optionClicked);
+                                }
+
+                            }
+                        })
+                        .show();
+            }
+        });
+
+        reviewsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //open same  reviews activity as  used in user main page
+
+                Intent intent=new Intent(MainSellerActivity.this,ShowShopReviewsActivity.class);
+                intent.putExtra("shopUid",""+firebaseAuth.getUid());
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void loadAllOrders() {
+
+        orderShopArrayList = new ArrayList<>();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(firebaseAuth.getUid()).child("Orders")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //clear list before adding new data in it
+                        orderShopArrayList.clear();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+
+                            ModelOrderShop modelOrderShop = ds.getValue(ModelOrderShop.class);
+
+                            //add to list
+                            orderShopArrayList.add(modelOrderShop);
+                        }
+                        //setup adapter
+                        adapterOrderShop = new AdapterOrderShop(getApplicationContext(), orderShopArrayList);
+                        ordersRV.setAdapter(adapterOrderShop);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void loadFilteredProducts(final String selected) {
@@ -209,10 +293,10 @@ public class MainSellerActivity extends AppCompatActivity {
 
                         for (DataSnapshot ds : snapshot.getChildren()) {
 
-                            String productCategory=""+ds.child("productCategory").getValue();
+                            String productCategory = "" + ds.child("productCategory").getValue();
 
                             //if selected category matches product category then add in list
-                            if(selected.equals(productCategory)){
+                            if (selected.equals(productCategory)) {
                                 ModelProduct modelProduct = ds.getValue(ModelProduct.class);
                                 productList.add(modelProduct);
 
@@ -229,10 +313,9 @@ public class MainSellerActivity extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
-                        Toast.makeText(getApplicationContext(),"error:"+error.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "error:" + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
 
 
     }
@@ -351,11 +434,11 @@ public class MainSellerActivity extends AppCompatActivity {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                             String name = "" + dataSnapshot.child("name").getValue();
-                            String accountType = "" + dataSnapshot.child("accountType").getValue();
+                            /* String accountType = "" + dataSnapshot.child("accountType").getValue();*/
 
                             String email = "" + dataSnapshot.child("email").getValue();
                             String shopName = "" + dataSnapshot.child("shopName").getValue();
-                            String profileImage = "" + dataSnapshot.child("profileImages").getValue();
+                            String profileImage = "" + dataSnapshot.child(" ").getValue();
 
                             //set data to ui
                             nameTV.setText(name);

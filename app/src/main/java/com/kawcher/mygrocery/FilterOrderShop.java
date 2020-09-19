@@ -2,18 +2,20 @@ package com.kawcher.mygrocery;
 
 import android.widget.Filter;
 
+import com.kawcher.mygrocery.adapters.AdapterOrderShop;
 import com.kawcher.mygrocery.adapters.AdapterProductSeller;
+import com.kawcher.mygrocery.models.ModelOrderShop;
 import com.kawcher.mygrocery.models.ModelProduct;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class FilterProduct extends Filter {
+public class FilterOrderShop extends Filter {
 
-    private AdapterProductSeller adapter;
-    private ArrayList<ModelProduct>filterList;
+    private AdapterOrderShop adapter;
+    private ArrayList<ModelOrderShop>filterList;
 
-    public FilterProduct(AdapterProductSeller adapter, ArrayList<ModelProduct> filterList) {
+    public FilterOrderShop(AdapterOrderShop adapter, ArrayList<ModelOrderShop> filterList) {
         this.adapter = adapter;
         this.filterList = filterList;
     }
@@ -30,11 +32,10 @@ public class FilterProduct extends Filter {
             constraint=constraint.toString().toUpperCase();
             //store our filtered list
 
-            ArrayList<ModelProduct>filteredModels=new ArrayList<>();
+            ArrayList<ModelOrderShop>filteredModels=new ArrayList<>();
             for(int  i=0;i<filterList.size();i++){
                 //check
-                if(filterList.get(i).getProductTitle().toUpperCase().contains(constraint) ||
-                        filterList.get(i).getProductCategory().toUpperCase().contains(constraint)){
+                if(filterList.get(i).getOrderStatus().toUpperCase().contains(constraint) ){
 
                     //add filtered data to list
                     filteredModels.add(filterList.get(i));
@@ -62,7 +63,7 @@ public class FilterProduct extends Filter {
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
 
-        adapter.productList = new ArrayList<ModelProduct>((Collection<? extends ModelProduct>) results.values);
+        adapter.orderShopArrayList= new ArrayList<ModelOrderShop>((Collection<? extends ModelOrderShop>) results.values);
         //refresh adapter
         adapter.notifyDataSetChanged();
 

@@ -1,4 +1,4 @@
-package com.kawcher.mygrocery;
+package com.kawcher.mygrocery.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kawcher.mygrocery.R;
 
 public class Splash_Activity extends AppCompatActivity {
 
@@ -61,8 +62,8 @@ public class Splash_Activity extends AppCompatActivity {
 
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
 
-        reference.orderByChild("uid").equalTo(firebaseAuth.getUid())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(firebaseAuth.getUid())
+       .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -70,17 +71,17 @@ public class Splash_Activity extends AppCompatActivity {
 
                             String accountType =""+dataSnapshot.child("accountType").getValue();
 
-                            if(accountType.equals("Seller")){
-
-
-                                //user is  seller
-                                startActivity(new Intent(Splash_Activity.this,MainSellerActivity.class));
-                                finish();
-                            } else {
+                            if(accountType.equals("User")){
 
 
                                 //user is  buyer
                                 startActivity(new Intent(Splash_Activity.this,MainUserActivity.class));
+                                finish();
+                            } else {
+
+
+                                //user is  seller
+                                startActivity(new Intent(Splash_Activity.this,MainSellerActivity.class));
                                 finish();
                             }
                         }

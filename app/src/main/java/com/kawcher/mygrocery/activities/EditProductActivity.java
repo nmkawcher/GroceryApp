@@ -1,4 +1,4 @@
-package com.kawcher.mygrocery;
+package com.kawcher.mygrocery.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +39,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kawcher.mygrocery.Constatns;
+import com.kawcher.mygrocery.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -282,7 +284,7 @@ public class EditProductActivity extends AppCompatActivity {
         } else {
             //product without discount
             discountPrice = "0";
-            discountNote = "demo";
+            discountNote = "";
         }
 
         updateProduct();
@@ -307,21 +309,44 @@ public class EditProductActivity extends AppCompatActivity {
 
             //setup data  in hashmap to update
 
-            hashMap.put("productTitle", "" + productTitle);
-            hashMap.put("productDescription", "" + productDescriptions);
-            hashMap.put("productCategory", "" + productCategory);
-            hashMap.put("productQuantity", "" + productQuantity);
-            hashMap.put("originalPrice", "" + orginalPrice);
-            hashMap.put("discountPrice", "" + discountPrice);
-            hashMap.put("discountAvailable", "" + discountAvailable);
+            hashMap.put("productId",""+timeStamp);
+            hashMap.put("productTitle",""+productTitle);
+            hashMap.put("productDescription",""+productDescriptions);
+            hashMap.put("productCategory",""+productCategory);
+            hashMap.put("productQuantity",""+productQuantity);
+            hashMap.put("productIcon","");
+            hashMap.put("originalPrice",""+orginalPrice);
+            hashMap.put("discountPrice",""+discountPrice);
+            hashMap.put("discountNote",""+discountNote);
+            hashMap.put("discountAvailable",""+discountAvailable);
+            hashMap.put("timestamp",""+timeStamp);
+            hashMap.put("uid",""+firebaseAuth.getUid());
+
+            /*  hashMap.put("productId",""+timeStamp);
+            hashMap.put("productTitle",""+productTitle);
+            hashMap.put("productDescription",""+productDescriptions);
+            hashMap.put("productCategory",""+productCategory);
+            hashMap.put("productQuantity",""+productQuantity);
+            hashMap.put("productIcon","");
+            hashMap.put("originalPrice",""+orginalPrice);
+            hashMap.put("discountPrice",""+discountPrice);
+            hashMap.put("discountNote",""+discountNote);
+            hashMap.put("discountAvailable",""+discountAvailable);
+            hashMap.put("timestamp",""+timeStamp);
+            hashMap.put("uid",""+firebaseAuth.getUid());*/
 
 
             //update to database
 
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+          /*  DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
             reference.child(firebaseAuth.getUid()).child("Products")
                     .updateChildren(hashMap)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    .addOnSuccessListener(new OnSuccessListener<Void>() { */
+
+
+                       DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+                                reference.child(firebaseAuth.getUid()).child("Products").child(productId).updateChildren(hashMap)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
 
@@ -370,21 +395,23 @@ public class EditProductActivity extends AppCompatActivity {
                                 //uri of image received upload to database
 
                                 HashMap<String, Object> hashMap = new HashMap<>();
-
-                                hashMap.put("productTitle", "" + productTitle);
-                                hashMap.put("productDescription", "" + productDescriptions);
-                                hashMap.put("productCategory", "" + productCategory);
-                                hashMap.put("productQuantity", "" + productQuantity);
-                                hashMap.put("productIcon", "" + downloadImageUri);
-                                hashMap.put("originalPrice", "" + orginalPrice);
-                                hashMap.put("discountPrice", "" + discountPrice);
-                                hashMap.put("discountAvailable", "" + discountAvailable);
-
+                                hashMap.put("productId",""+timeStamp);
+                                hashMap.put("productTitle",""+productTitle);
+                                hashMap.put("productDescription",""+productDescriptions);
+                                hashMap.put("productCategory",""+productCategory);
+                                hashMap.put("productQuantity",""+productQuantity);
+                                hashMap.put("productIcon",""+downloadImageUri);
+                                hashMap.put("originalPrice",""+orginalPrice);
+                                hashMap.put("discountPrice",""+discountPrice);
+                                hashMap.put("discountNote",""+discountNote);
+                                hashMap.put("discountAvailable",""+discountAvailable);
+                                hashMap.put("timestamp",""+timeStamp);
+                                hashMap.put("uid",""+firebaseAuth.getUid());
 
                                 //upload  to database
 
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-                                reference.child(firebaseAuth.getUid()).child("Products").child(timeStamp).setValue(hashMap)
+                                reference.child(firebaseAuth.getUid()).child("Products").child(productId).updateChildren(hashMap)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
@@ -392,7 +419,7 @@ public class EditProductActivity extends AppCompatActivity {
                                                 //added to database
 
                                                 progressDialog.dismiss();
-                                                Toast.makeText(EditProductActivity.this, "Product added", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(EditProductActivity.this, "Product updated", Toast.LENGTH_SHORT).show();
 
                                                /* clearData();*/
                                             }

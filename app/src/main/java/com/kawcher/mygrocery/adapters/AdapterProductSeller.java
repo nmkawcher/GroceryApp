@@ -1,4 +1,4 @@
-package com.kawcher.mygrocery;
+package com.kawcher.mygrocery.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -24,11 +24,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.kawcher.mygrocery.FilterProduct;
+import com.kawcher.mygrocery.R;
+import com.kawcher.mygrocery.activities.EditProductActivity;
+import com.kawcher.mygrocery.models.ModelProduct;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSeller.HolderProductSeller> implements Filterable {
+public class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSeller.HolderProductSeller> implements Filterable {
 
     private Context context;
     public ArrayList<ModelProduct>productList,filterList;
@@ -74,8 +78,8 @@ class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSeller.Hol
         holder.titleTV.setText(title);
         holder.quantityTV.setText(quantity);
         holder.discountedNoteTV.setText(discountNote);
-        holder.discountedPriceTV.setText(discountPrice);
-        holder.originalPriceTV.setText(originalPrice);
+        holder.discountedPriceTV.setText("$"+discountPrice);
+        holder.originalPriceTV.setText("$"+originalPrice);
 
         if(discountAvailable.equals("true")){
             //product is on discount
@@ -88,6 +92,7 @@ class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSeller.Hol
             //product is  not discount
             holder.discountedPriceTV.setVisibility(View.GONE);
             holder.discountedNoteTV.setVisibility(View.GONE);
+            holder.originalPriceTV.setPaintFlags(0);
         }
 
         try{
@@ -195,7 +200,7 @@ class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSeller.Hol
                 //open eidt product activity pass id of  product
 
                 bottomSheetDialog.dismiss();
-                Intent intent=new Intent(context,EditProductActivity.class);
+                Intent intent=new Intent(context, EditProductActivity.class);
                 intent.putExtra("productId",id);
                 context.startActivity(intent);
 

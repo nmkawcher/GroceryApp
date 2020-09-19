@@ -1,6 +1,6 @@
-package com.kawcher.mygrocery;
+package com.kawcher.mygrocery.models;
 
-class ModelProduct {
+public class ModelProduct {
 
 
     private String productId,productTitle,productDescription,productCategory,productQuantity
