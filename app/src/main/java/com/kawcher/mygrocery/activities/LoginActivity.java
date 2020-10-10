@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -182,17 +183,18 @@ public class LoginActivity extends AppCompatActivity {
 
                             String accountType =""+dataSnapshot.child("accountType").getValue();
 
-                            if(accountType.equals("Seller")){
+                            if(accountType.equals("User")){
 
                                 progressDialog.dismiss();
-                                //user is  seller
-                                startActivity(new Intent(LoginActivity.this,MainSellerActivity.class));
+                                //user is  user
+                                Log.e("TAG", "here user" );
+                                startActivity(new Intent(LoginActivity.this,MainUserActivity.class));
                                 finish();
-                            } else {
+                            } else if(accountType.equals("Seller")){
 
                                 progressDialog.dismiss();
                                 //user is  buyer
-                                startActivity(new Intent(LoginActivity.this,MainUserActivity.class));
+                                startActivity(new Intent(LoginActivity.this,MainSellerActivity.class));
                                 finish();
                             }
                         }

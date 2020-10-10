@@ -2,8 +2,11 @@ package com.kawcher.mygrocery;
 
 public class Constatns {
 
-    //product categories
+  public static final String FCM_KEY="AAAA3euAHOI:APA91bFP9fbRfiFYQnujloo-7KkiNJxvytDy2Mz8tnU_m-aFtldX4T2g_iXOq5d3ZZkFJw-CD3LABTqhx1imeKk2GDkqnynvN9aGBiHHlXD-iQ9haVGcYb5HcU3jANPksTam_l9e4tP1";
 
+  public static final String FCM_TOPIC="PUSH_NOTIFICATIONS";
+
+  //product categories
   public static final  String [] productCategories={
 
             "Beverages",

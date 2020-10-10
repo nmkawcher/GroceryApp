@@ -36,7 +36,7 @@ import java.util.HashMap;
 public class MainUserActivity extends AppCompatActivity {
 
     private TextView nameTV,emailTV,phoneTV,tabShopsTV,tabOrdersTV;
-    private ImageButton logoutBtn,editProfileBtn;
+    private ImageButton logoutBtn,editProfileBtn,settingBtn;
     private RelativeLayout shopsRL,ordersRL;
     private ImageView profileIV;
 
@@ -67,6 +67,7 @@ public class MainUserActivity extends AppCompatActivity {
         ordersRL=findViewById(R.id.ordersRL);
         logoutBtn=findViewById(R.id.logoutBtn);
         editProfileBtn=findViewById(R.id.editProfileBtn);
+        settingBtn=findViewById(R.id.settingBtn);
 
         profileIV=findViewById(R.id.profileIV);
         shopsRV=findViewById(R.id.shopsRV);
@@ -120,6 +121,15 @@ public class MainUserActivity extends AppCompatActivity {
                 //show orders
 
                 showOrdersUI();
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(getApplicationContext(),SettingsActivity.class);
+                startActivity(intent);
             }
         });
     }

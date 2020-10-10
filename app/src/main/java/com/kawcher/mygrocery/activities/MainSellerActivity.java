@@ -43,7 +43,7 @@ public class MainSellerActivity extends AppCompatActivity {
 
     private TextView nameTV, shopNameTV, emailTV, tabProductTV, tabOrderTV, filteredProductsTV, filterOrdersTV;
     private EditText searchProductET;
-    private ImageButton logoutBtn, editProfileBtn, addProductBtn, filterProductBtn, filterOrderBtn, reviewsBtn;
+    private ImageButton logoutBtn, editProfileBtn, addProductBtn, filterProductBtn, filterOrderBtn, reviewsBtn,settingBtn;
     private ImageView profileIV;
     private RelativeLayout productsRL, ordersRL;
     private RecyclerView productRV, ordersRV;
@@ -79,6 +79,7 @@ public class MainSellerActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.logoutBtn);
         editProfileBtn = findViewById(R.id.editProfileBtn);
         addProductBtn = findViewById(R.id.addProductBtn);
+        settingBtn=findViewById(R.id.settingBtn);
 
         productRV = findViewById(R.id.productsRV);
         ordersRV = findViewById(R.id.ordersRV);
@@ -242,6 +243,14 @@ public class MainSellerActivity extends AppCompatActivity {
 
                 Intent intent=new Intent(MainSellerActivity.this,ShowShopReviewsActivity.class);
                 intent.putExtra("shopUid",""+firebaseAuth.getUid());
+                startActivity(intent);
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),SettingsActivity.class);
                 startActivity(intent);
             }
         });

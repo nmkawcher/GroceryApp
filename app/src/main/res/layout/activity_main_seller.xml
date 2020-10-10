@@ -48,7 +48,13 @@
             android:layout_toLeftOf="@id/addProductBtn"
             android:background="@null"
             android:src="@drawable/ic_white_star" />
-
+        <ImageButton
+            android:id="@+id/settingBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toLeftOf="@id/reviewsBtn"
+            android:background="@null"
+            android:src="@drawable/ic_setting_white" />
 
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
             android:layout_width="75dp"
